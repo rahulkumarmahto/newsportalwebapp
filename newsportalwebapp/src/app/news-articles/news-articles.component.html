@@ -1,1 +1,70 @@
-<p>news-articles works!</p>
+
+<p-table #dt [value]="newsArticles" [columns]="cols" 
+    [globalFilterFields]="['title','description','createdBy']"
+    [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 20, 30, 40, 50, { showAll: 'All' }]"
+    [rowHover]="true" dataKey="id"
+    [lazy]="true"
+    (onLazyLoad)="loadNewsArticles($event)"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <!-- <input #searchInput pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" /> -->
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon>
+                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon>
+                <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="newsCategoryName">Category <p-sortIcon field="newsCategoryName"></p-sortIcon>
+                <p-columnFilter type="text" field="newsCategoryName" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="createdDateTime">CreatedDate <p-sortIcon field="createdDateTime"></p-sortIcon>
+                <p-columnFilter type="text" field="createdDateTime" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="createdBy">CreatedBy <p-sortIcon field="createdBy"></p-sortIcon>
+                <p-columnFilter type="text" field="createdBy" display="menu"></p-columnFilter>
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-newsArticle>
+        <tr>
+            <td><span class="p-column-title">Title</span>
+                {{newsArticle.title}}
+            </td>
+
+            <td><span class="p-column-title">Description</span>
+                {{newsArticle.description}}
+            </td>
+            <td><span class="p-column-title">Category</span>
+                {{newsArticle.newsCategoryName}}
+            </td>
+            <td><span class="p-column-title">CreatedDate</span>
+                {{newsArticle.status}}
+            </td>
+            <td><span class="p-column-title">CreatedBy</span>
+                {{newsArticle.createdBt}}
+            </td>
+
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button p-mr-2"
+                    (click)="editNewsArticle(newsArticle)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                    (click)="deleteNewsArticle(newsArticle)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            In total there are {{newsArticles ? newsArticles.length : 0 }} news articles.
+        </div>
+    </ng-template>
+</p-table>
