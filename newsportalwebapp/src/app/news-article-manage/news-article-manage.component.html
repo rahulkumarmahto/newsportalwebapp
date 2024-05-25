@@ -1,1 +1,60 @@
-<p>news-article-manage works!</p>
+<div class="p-pb-3">
+    <p-toast></p-toast>
+    <div class="p-grid">
+        <div class="p-col-12">
+            <div class="toolbar-demo card">
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <div class="header-left-div">
+                            <div class="header-div1">
+                                <img class="header-icon" src="" alt="">
+                            </div>
+                            <div class="header-div2">
+                                <h5>NEWS Article - NEW</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template pTemplate="right">
+                        <div class="p-d-flex">
+                            <button type="button" pButton pRipple icon="pi pi-save" (click)="SaveNewsArticle()"
+                                pTooltip="Save"></button>
+                        </div>
+                    </ng-template>
+                </p-toolbar>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12 p-lg-12">
+            <div class="card">
+                <form [formGroup]="batchSearchFormGroup" (ngSubmit)="onSubmit()">
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3">
+                            <input type="hidden" formControlName="id" id="id" />
+                            <label for="newsCategory">Category</label>
+                            <p-dropdown inputId="newsCategory" [options]="newsCategorySelectItemList"
+                                formControlName="newsCategory" placeholder="Select" optionLabel="label">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <label for="title">Title</label>
+                            <textarea id="title" pInputTextarea required
+                                formControlName="title" style="width: 100%;"></textarea>
+                        </div>
+                        <div class="p-field p-col-12 p-md-12">
+                            <label for="description">Description</label>
+                            <textarea id="description" pInputTextarea required
+                                formControlName="description"  style="width: 100%;"></textarea>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <label for="createdBy">CreatedBy</label>
+                            <input pInputText type="text" id="createdBy" formControlName="createdBy">
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <label for="createdDateTime">CreatedDateTime</label>
+                            <input pInputText type="datetime" id="createdDateTime" formControlName="createdDateTime">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

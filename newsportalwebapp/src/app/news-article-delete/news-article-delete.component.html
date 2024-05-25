@@ -1,1 +1,12 @@
 <p>news-article-delete works!</p>
+
+<div class="card">
+    <div>
+        <h1>Are you sure want to delete the record?</h1>
+        <button type="button" pButton pRipple icon="pi pi-trash" (click)="DeleteNewsArticle()"
+                                pTooltip="Delete">Yes</button>
+
+        <button type="button" pButton pRipple icon="pi pi-pencil" (click)="CancelDeleteNewsArticle()"
+                                pTooltip="Cancel">No</button>
+    </div>
+</div>

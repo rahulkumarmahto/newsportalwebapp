@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsArticleService } from '../services/news-article.service';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar'
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-news-articles',
   standalone: true,
-  imports: [TableModule, IconFieldModule, InputIconModule, HttpClientModule],
+  imports: [TableModule, IconFieldModule, InputIconModule, HttpClientModule, ButtonModule, ToastModule, ToolbarModule],
   templateUrl: './news-articles.component.html',
   styleUrl: './news-articles.component.scss'
 })
@@ -23,7 +28,10 @@ export class NewsArticlesComponent implements OnInit {
   itemsCount?: number;
   matchingRecordCount?: number;
 
-  constructor(private newsArticleService: NewsArticleService) {
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private newsArticleService: NewsArticleService) {
 
   }
   ngOnInit(): void {
@@ -86,10 +94,21 @@ export class NewsArticlesComponent implements OnInit {
 
   }
 
+  InputTextSearch(dt: any, event: any) {
+    dt.filterGlobal(event.target.value, 'contains')
+
+  }
+
+  addNewNewsArticle() {
+    this.router.navigateByUrl("/NewsArticle/Manage/0");
+
+  }
   editNewsArticle(request: any) {
+    this.router.navigateByUrl("/NewsArticle/Manage/" + request.id);
   }
 
   deleteNewsArticle(request: any) {
+    this.router.navigateByUrl("/NewsArticle/Delete/" + request.id);
   }
 
 }
