@@ -75,7 +75,7 @@ export class NewsArticlesComponent implements OnInit {
       },
         error => {
           console.error(error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: JSON.stringify(error), life: 3000 });
         })
     }, 1000);
 
