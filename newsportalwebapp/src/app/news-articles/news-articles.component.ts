@@ -24,7 +24,7 @@ export class NewsArticlesComponent implements OnInit {
   cols: any[] = [];
   loading: boolean = true;
   rowsToDisplay?: number;
-  totalCount?: number;
+  totalCount: number = 0;
   itemsCount?: number;
   matchingRecordCount?: number;
 
@@ -41,40 +41,33 @@ export class NewsArticlesComponent implements OnInit {
     this.loading = true;
     let searchText = '';
     let pageIndex = 1;
+
+    console.log(event);
     if (event.first)
-      pageIndex = event.first == 0 ? 1 : (event.first / 10) + 1;
+      pageIndex = event.first == 0 ? 1 : (event.first / event.rows) + 1;
 
     let sortBy = 'CreatedDateTime';
     let sortDirection = "DESC";
     let pageSize = event.rows;
     this.rowsToDisplay = event.rows ?? 5;
 
-    // if (event.globalFilter || event.sortField) {
-    //   sortBy = event.sortField[0] ?? 'CreatedDateTime';
-    //   sortDirection = event.sortOrder == 1 ? "ASC" : "DESC";
-    //   pageSize = event.rows;
-
-    //   if (event.filters && event.filters.global) {
-    //     searchText = event.filters.global.value
-    //   }
-    // }
+    if (event.globalFilter || event.sortField) {
+      sortBy = event.sortField ?? 'CreatedDateTime';
+      sortDirection = event.sortOrder == 1 ? "ASC" : "DESC";
+      pageSize = event.rows;
+      if (event.filters.global) {
+        searchText = event.filters.global.value
+      }
+    }
 
     setTimeout(() => {
-
       var queryParameters = {
-        searchText: '',
+        searchText: searchText,
         pageIndex: pageIndex,
         sortBy: sortBy,
         sortDirection: sortDirection,
         pageSize: pageSize
       };
-
-      this.newsArticleService.getById(1).subscribe(res => {
-        console.log(res);
-
-      }, error => {
-        console.error(error);
-      });
 
       this.newsArticleService.getByQueryParameters(queryParameters).subscribe(res => {
         this.newsArticles = res.items ?? [];
@@ -94,9 +87,8 @@ export class NewsArticlesComponent implements OnInit {
 
   }
 
-  InputTextSearch(dt: any, event: any) {
-    dt.filterGlobal(event.target.value, 'contains')
-
+  inputTextSearch(dt: any, event: any) {
+    dt.filterGlobal(event.target.value, 'contains');
   }
 
   addNewNewsArticle() {

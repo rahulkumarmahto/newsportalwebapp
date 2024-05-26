@@ -25,41 +25,38 @@
         </div>
         <div class="p-col-12 p-md-12 p-lg-12">
             <div class="card">
-                <p-table #dt [value]="newsArticles" [columns]="cols"
-                    [globalFilterFields]="['title','description','createdBy']" [rows]="5" [paginator]="true"
-                    [rowsPerPageOptions]="[5, 10, 20, 30, 40, 50, { showAll: 'All' }]" [rowHover]="true" dataKey="id"
-                    [lazy]="true" (onLazyLoad)="loadNewsArticles($event)"
+                <p-table #dt [value]="newsArticles" 
+                    [columns]="cols"
+                    [totalRecords]="totalCount" 
+                    [rows]="rowsToDisplay"
+                    [rows]="5" 
+                    [paginator]="true"
+                    [rowHover]="true" 
+                    dataKey="id"
+                    [lazy]="true" 
+                    (onLazyLoad)="loadNewsArticles($event)"
+                    [globalFilterFields]="['title','description','createdBy']" 
+                    [rowsPerPageOptions]="[5, 10, 20, 50, 100, 500, { showAll: 'All' }]"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     [showCurrentPageReport]="true">
                     <ng-template pTemplate="caption">
                         <div class="flex">
-                            <input 
-                                    pInputText 
-                                    type="text" 
-                                    (input)="InputTextSearch(dt, $event)" 
-                                    placeholder="Search keyword" />
+                            <input #t2 pInputText type="text" (input)="dt.filterGlobal(t2.value, 'contains')"
+                                placeholder="Search keyword" />
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon>
-                                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                            <th>Title
                             </th>
-                            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon>
-                                <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                            <th>Description
                             </th>
-                            <th pSortableColumn="newsCategoryName">Category <p-sortIcon
-                                    field="newsCategoryName"></p-sortIcon>
-                                <p-columnFilter type="text" field="newsCategoryName" display="menu"></p-columnFilter>
+                            <th>Category
                             </th>
-                            <th pSortableColumn="createdDateTime">CreatedDate <p-sortIcon
-                                    field="createdDateTime"></p-sortIcon>
-                                <p-columnFilter type="text" field="createdDateTime" display="menu"></p-columnFilter>
+                            <th>CreatedDate
                             </th>
-                            <th pSortableColumn="createdBy">CreatedBy <p-sortIcon field="createdBy"></p-sortIcon>
-                                <p-columnFilter type="text" field="createdBy" display="menu"></p-columnFilter>
+                            <th>CreatedBy
                             </th>
-
                             <th>Action</th>
                         </tr>
                     </ng-template>
