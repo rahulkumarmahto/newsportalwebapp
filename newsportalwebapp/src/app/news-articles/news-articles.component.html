@@ -26,10 +26,8 @@
         <div class="p-col-12 p-md-12 p-lg-12">
             <div class="card">
                 <p-table #dt [value]="newsArticles" 
-                    [columns]="cols"
-                    [totalRecords]="totalCount" 
+                    [totalRecords]="matchingRecordCount" 
                     [rows]="rowsToDisplay"
-                    [rows]="5" 
                     [paginator]="true"
                     [rowHover]="true" 
                     dataKey="id"
@@ -78,7 +76,6 @@
                             <td><span class="p-column-title">CreatedBy</span>
                                 {{newsArticle.createdBy}}
                             </td>
-
                             <td>
                                 <p-button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button p-mr-2"
                                     (click)="editNewsArticle(newsArticle)" />
