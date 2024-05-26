@@ -4,7 +4,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { NewsArticleService } from '../services/news-article.service';
 import { NewsCategoryService } from '../services/news-category.service';
@@ -26,6 +26,7 @@ export class NewsArticleManageComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
+    private messageService : MessageService,
     private newsArticleService: NewsArticleService,
     private newsCategoryService: NewsCategoryService
   ) {
@@ -66,13 +67,17 @@ export class NewsArticleManageComponent implements OnInit {
       console.log(this.newsCategorySelectItemList);
     }, error => {
       console.error(error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
     })
   }
 
   getById(id: number) {
     this.newsArticleService.getById(id).subscribe(x => {
       this.batchSearchFormGroup.patchValue(x);
-    });
+    },
+  error=>{
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
+  });
   }
   SaveNewsArticle() {
 
@@ -82,20 +87,22 @@ export class NewsArticleManageComponent implements OnInit {
     if (this.newsArticleId == 0) {
       request.newsCategoryId = this.batchSearchFormGroup.value.newsCategory.value;
       this.newsArticleService.add(request).subscribe(response => {
-
+        this.messageService.add({ severity: 'success', summary: 'success', detail: "Record added successfully", life: 3000 });
       },
         error => {
-          console.error(error)
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
         });
     }
     else {
       request.id = this.newsArticleId;
       request.newsCategoryId = this.batchSearchFormGroup.value.newsCategoryId;
       this.newsArticleService.updateById(this.newsArticleId, request).subscribe(response => {
-
+        this.messageService.add({ severity: 'success', summary: 'success', detail: "Record updated successfully", life: 3000 });
       },
         error => {
-          console.error(error)
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
         });
     }
   }

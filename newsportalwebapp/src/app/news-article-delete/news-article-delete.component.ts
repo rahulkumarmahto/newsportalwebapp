@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsArticleService } from '../services/news-article.service';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-news-article-delete',
@@ -18,6 +19,7 @@ export class NewsArticleDeleteComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private messageService : MessageService,
     private newsArticleService: NewsArticleService
   ) {
   }
@@ -29,10 +31,11 @@ export class NewsArticleDeleteComponent implements OnInit {
 
   DeleteNewsArticle() {
     this.newsArticleService.deleteById(this.newsArticleId).subscribe(res => {
-      console.log("deleted");
+      this.messageService.add({ severity: 'success', summary: 'success', detail: "Record delete successfully", life: 3000 });
     },
       error => {
         console.error(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
       });
   }
   CancelDeleteNewsArticle() {
