@@ -7,7 +7,7 @@ This is a demo project of News Article using Angular 17. It contains the feautur
 ### Clone the repo
 
 ```shell
-git clone https://github.com/rahulkumarmahto/newsportalwebapp
+git clone https://github.com/rahulkumarmahto/newsportalwebapp.git
 cd intern-angular
 ```
 
