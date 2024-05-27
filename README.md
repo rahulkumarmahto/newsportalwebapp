@@ -34,3 +34,17 @@ These are the most useful commands defined in `package.json`:
 * `npm run lint` - runs `tslint` on the project files.
 * `npm run serve` - runs `lite-server`.
 
+## Packages:
+npm install primeng
+
+## With angular.json
+"styles": [
+    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+    "node_modules/primeng/resources/primeng.min.css",
+    ...
+]
+
+### With styles.css
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
