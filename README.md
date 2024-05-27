@@ -20,7 +20,7 @@ npm install
 npm start
 ```
 
-The `npm start` command builds (compiles TypeScript and copies assets) the application into `dist/`, watches for changes to the source files, and runs `lite-server` on port `3000`.
+The `npm start` command builds (compiles TypeScript and copies assets) the application into `dist/`, watches for changes to the source files, and runs `lite-server` on port `4200`.
 
 Shut it down manually with `Ctrl-C`.
 
@@ -33,9 +33,4 @@ These are the most useful commands defined in `package.json`:
 * `npm run build:watch` - runs the TypeScript compiler and asset copier in "watch mode"; when changes occur to source files, they will be recompiled or copied into `dist/`.
 * `npm run lint` - runs `tslint` on the project files.
 * `npm run serve` - runs `lite-server`.
-
-These are the test-related scripts:
-
-* `npm test` - builds the application and runs Intern tests (both unit and functional) one time.
-* `npm run ci` - cleans, lints, and builds the application and runs Intern tests (both unit and functional) one time.
 
